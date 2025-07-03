@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import HomeButton from '../components/HomeButton';
 
-const AlarmPreviewPage = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const [timeRemaining, setTimeRemaining] = useState(route.params?.alarmTime || 5);
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ArrivalAlarm'>;
+type RouteProps = RouteProp<RootStackParamList, 'AlarmPreview'>;
+
+const AlarmPreviewPage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<RouteProps>();
+  const [timeRemaining, setTimeRemaining] = useState<number>(route.params?.alarmTime || 5);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -21,7 +26,7 @@ const AlarmPreviewPage = () => {
     }, 60000); // Update every minute
 
     return () => clearInterval(timer);
-  }, []);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>

@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 
-const LoadingScreen = () => {
-  const navigation = useNavigation();
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Main'>;
+
+const LoadingScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
   const fadeAnim = new Animated.Value(0);
 
   useEffect(() => {
@@ -17,7 +21,7 @@ const LoadingScreen = () => {
     ]).start(() => {
       navigation.replace('Main');
     });
-  }, []);
+  }, [fadeAnim, navigation]);
 
   return (
     <View style={styles.container}>

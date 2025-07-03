@@ -1,13 +1,24 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import HomeButton from '../components/HomeButton';
 
-const HistoryPage = () => {
-  const navigation = useNavigation();
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'SelectTransport'>;
+
+interface HistoryItem {
+  id: string;
+  transport: string;
+  destination: string;
+  date: string;
+}
+
+const HistoryPage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
 
   // Mock data for history items
-  const historyItems = [
+  const historyItems: HistoryItem[] = [
     {
       id: '1',
       transport: 'Tram',
@@ -28,14 +39,12 @@ const HistoryPage = () => {
     },
   ];
 
-  const handleHistoryItemPress = (item) => {
-    navigation.navigate('SelectTransport', {
-      transport: item.transport,
-      destination: item.destination,
-    });
+  const handleHistoryItemPress = (item: HistoryItem) => {
+    // Note: SelectTransport doesn't accept parameters, so we'll navigate without them
+    navigation.navigate('SelectTransport');
   };
 
-  const renderHistoryItem = ({ item }) => (
+  const renderHistoryItem = ({ item }: { item: HistoryItem }) => (
     <TouchableOpacity
       style={styles.historyItem}
       onPress={() => handleHistoryItemPress(item)}

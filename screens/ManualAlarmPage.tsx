@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import HomeButton from '../components/HomeButton';
 
-const ManualAlarmPage = () => {
-  const navigation = useNavigation();
-  const [selectedHours, setSelectedHours] = useState(0);
-  const [selectedMinutes, setSelectedMinutes] = useState(0);
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AlarmPreview'>;
 
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  const minutes = Array.from({ length: 60 }, (_, i) => i);
+const ManualAlarmPage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
+  const [selectedHours, setSelectedHours] = useState<number>(0);
+  const [selectedMinutes, setSelectedMinutes] = useState<number>(0);
+
+  const hours: number[] = Array.from({ length: 24 }, (_, i) => i);
+  const minutes: number[] = Array.from({ length: 60 }, (_, i) => i);
 
   const handleSetAlarm = () => {
     const totalMinutes = selectedHours * 60 + selectedMinutes;
     navigation.navigate('AlarmPreview', {
+      transport: '',
+      destination: '',
       alarmTime: totalMinutes,
       isManual: true,
     });

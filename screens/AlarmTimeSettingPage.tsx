@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import HomeButton from '../components/HomeButton';
 
-const AlarmTimeSettingPage = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const [selectedTime, setSelectedTime] = useState(5);
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'AlarmPreview'>;
+type RouteProps = RouteProp<RootStackParamList, 'AlarmTimeSetting'>;
 
-  const timeOptions = [3, 5, 7, 10, 15];
+const AlarmTimeSettingPage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
+  const route = useRoute<RouteProps>();
+  const [selectedTime, setSelectedTime] = useState<number>(5);
+
+  const timeOptions: number[] = [3, 5, 7, 10, 15];
 
   const handleContinue = () => {
     navigation.navigate('AlarmPreview', {
-      transport: route.params?.transport,
-      destination: route.params?.destination,
+      transport: route.params?.transport || '',
+      destination: route.params?.destination || '',
       alarmTime: selectedTime,
     });
   };

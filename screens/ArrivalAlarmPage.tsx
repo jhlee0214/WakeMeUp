@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Vibration } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import HomeButton from '../components/HomeButton';
 
-const ArrivalAlarmPage = () => {
-  const navigation = useNavigation();
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+
+const ArrivalAlarmPage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
 
   useEffect(() => {
     // Vibrate pattern: 1 second on, 1 second off, repeat

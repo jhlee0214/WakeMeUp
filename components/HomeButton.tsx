@@ -2,9 +2,13 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 
-const HomeButton = () => {
-  const navigation = useNavigation();
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Main'>;
+
+const HomeButton: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
 
   return (
     <TouchableOpacity

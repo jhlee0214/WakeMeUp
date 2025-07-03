@@ -1,12 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../App';
 import HomeButton from '../components/HomeButton';
 
-const SelectTransportPage = () => {
-  const navigation = useNavigation();
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Destination'>;
 
-  const transportOptions = [
+interface TransportOption {
+  name: string;
+  icon: string;
+}
+
+const SelectTransportPage: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
+
+  const transportOptions: TransportOption[] = [
     { name: 'Train', icon: '🚂' },
     { name: 'Bus', icon: '🚌' },
     { name: 'Tram', icon: '🚋' },

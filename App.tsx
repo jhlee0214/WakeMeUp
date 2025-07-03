@@ -14,7 +14,19 @@ import ArrivalAlarmPage from './screens/ArrivalAlarmPage';
 import ManualAlarmPage from './screens/ManualAlarmPage';
 import HistoryPage from './screens/HistoryPage';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Loading: undefined;
+  Main: undefined;
+  SelectTransport: undefined;
+  Destination: { transport: string };
+  AlarmTimeSetting: { transport: string; destination: string };
+  AlarmPreview: { transport: string; destination: string; alarmTime: number; isManual?: boolean };
+  ArrivalAlarm: undefined;
+  ManualAlarm: undefined;
+  History: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
@@ -38,4 +50,4 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+} 
